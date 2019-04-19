@@ -1,2 +1,4 @@
 <!--pages/index/index.wxml-->
-<text>pages/index/index.wxml</text>
+<View class="page">
+  <list wx:for="{{data}}" wx:key="{{index}}" title="{{item.title}}" text="{{item.text}}" image="{{item.image}}" time="{{item.time}}"></list>
+</View>

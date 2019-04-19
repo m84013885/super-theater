@@ -5,7 +5,9 @@ Page({
    * 页面的初始数据
    */
   data: {
-
+    data:[
+      {image:'https://avatar.app-remix.com/default.jpg?imageMogr2/thumbnail/100x100/auto-orient',title:'测试',text:'文本',time:1555664362197}
+    ]
   },
 
   /**
