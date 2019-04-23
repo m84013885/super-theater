@@ -1,0 +1,9 @@
+<view class="main">
+  <view class="search" bindtap="_openSearch">
+    <icon type="search" size="18"/>
+    <text class="searchText" hidden="{{search}}">搜索</text>
+    <input class="inputText {{search?'inputTextShow':''}}" bindblur="_closeSearch" type="text" placeholder="房间名称搜索" focus="{{focus1}}"/>
+  </view>
+  <view class="add" hidden="{{search}}">+</view>
+  <view class="closeSearch" bindtap="_closeSearch" hidden="{{!search}}">取消</view>
+</view>

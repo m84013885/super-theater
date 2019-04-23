@@ -1,4 +1,4 @@
-<!--pages/index/index.wxml-->
-<View class="page">
-  <list wx:for="{{data}}" wx:key="{{index}}" title="{{item.title}}" text="{{item.text}}" image="{{item.image}}" time="{{item.time}}"></list>
-</View>
+<view class="page">
+    <tool search="{{search}}" bind:openSearch="bindleOpenChangeSearch" bind:closeSearch="bindleCloseChangeSearch"/>
+    <list wx:for="{{data}}" wx:key="{{index}}" title="{{item.title}}" text="{{item.text}}" image="{{item.image}}" time="{{item.time}}"></list>
+</view>

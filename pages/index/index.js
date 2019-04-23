@@ -6,8 +6,20 @@ Page({
    */
   data: {
     data:[
+      {image:'https://avatar.app-remix.com/default.jpg?imageMogr2/thumbnail/100x100/auto-orient',title:'测试',text:'文本',time:1555664362197},
+      {image:'https://avatar.app-remix.com/default.jpg?imageMogr2/thumbnail/100x100/auto-orient',title:'测试',text:'文本',time:1555664362197},
+      {image:'https://avatar.app-remix.com/default.jpg?imageMogr2/thumbnail/100x100/auto-orient',title:'测试',text:'文本',time:1555664362197},
+      {image:'https://avatar.app-remix.com/default.jpg?imageMogr2/thumbnail/100x100/auto-orient',title:'测试',text:'文本',time:1555664362197},
+      {image:'https://avatar.app-remix.com/default.jpg?imageMogr2/thumbnail/100x100/auto-orient',title:'测试',text:'文本',time:1555664362197},
+      {image:'https://avatar.app-remix.com/default.jpg?imageMogr2/thumbnail/100x100/auto-orient',title:'测试',text:'文本',time:1555664362197},
+      {image:'https://avatar.app-remix.com/default.jpg?imageMogr2/thumbnail/100x100/auto-orient',title:'测试',text:'文本',time:1555664362197},
+      {image:'https://avatar.app-remix.com/default.jpg?imageMogr2/thumbnail/100x100/auto-orient',title:'测试',text:'文本',time:1555664362197},
+      {image:'https://avatar.app-remix.com/default.jpg?imageMogr2/thumbnail/100x100/auto-orient',title:'测试',text:'文本',time:1555664362197},
+      {image:'https://avatar.app-remix.com/default.jpg?imageMogr2/thumbnail/100x100/auto-orient',title:'测试',text:'文本',time:1555664362197},
+      {image:'https://avatar.app-remix.com/default.jpg?imageMogr2/thumbnail/100x100/auto-orient',title:'测试',text:'文本',time:1555664362197},
       {image:'https://avatar.app-remix.com/default.jpg?imageMogr2/thumbnail/100x100/auto-orient',title:'测试',text:'文本',time:1555664362197}
-    ]
+    ],
+    search:false
   },
 
   /**
@@ -58,7 +70,17 @@ Page({
   onReachBottom: function () {
 
   },
-
+  // 普通执行事件
+  bindleOpenChangeSearch:function(){
+    this.setData({
+      search:true
+    })
+  },
+  bindleCloseChangeSearch:function(){
+    this.setData({
+      search:false
+    })
+  },
   /**
    * 用户点击右上角分享
    */

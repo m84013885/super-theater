@@ -1,11 +1,5 @@
 .page{
-  background-color: #F8F8F8;
+  background-color: #FFFFFF;
   font-size: 32rpx;
   font-family: -apple-system-font,Helvetica Neue,Helvetica,sans-serif;
-}
-.container {
-  width: 100%;
-}
-.hide{
-  display: none!important;
 }

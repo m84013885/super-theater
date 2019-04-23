@@ -29,6 +29,11 @@ Component({
   },
   methods: {
       // 这里是一个自定义方法
+      go(){
+        wx.navigateTo({
+          url: '../content/content'
+        })
+      },
       afterTime(time){
         let mius = Date.now()-time
         if(mius<(1000*60)){
