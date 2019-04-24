@@ -1,4 +1,19 @@
-<view class="main">
-  <image class="image" src="{{image}}"></image>
-  <view class="chatContent">{{content}}</view>
+<view>
+  <view id='demo'>元素</view>
+  <block wx:if="{{mine}}">
+    <view class="main">
+      <image class="image" src="{{image}}"></image>
+      <view class="chatWidth" style="max-width:{{width}}">
+        <view class="chatContent">{{content}}</view>
+      </view>
+    </view>
+  </block>
+  <block wx:else>
+    <view class="main">
+      <image class="image" src="{{image}}"></image>
+      <view class="chatWidth" style="max-width:{{width}}">
+        <view class="chatContent">{{content}}</view>
+      </view>
+    </view>
+  </block>
 </view>
