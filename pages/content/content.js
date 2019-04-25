@@ -5,7 +5,7 @@ Page({
    * 页面的初始数据
    */
   data: {
-    
+
   },
 
   /**
@@ -19,7 +19,14 @@ Page({
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function () {
-
+    var query = wx.createSelectorQuery();
+    query.select('#chatWidth').boundingClientRect()
+    query.exec(function (res) {
+      //res就是 所有标签为mjltest的元素的信息 的数组
+      console.log(res);
+      //取高度
+      console.log(res[0].width);
+    })
   },
 
   /**
@@ -57,14 +64,14 @@ Page({
 
   },
   // 普通执行事件
-  bindleOpenChangeSearch:function(){
+  bindleOpenChangeSearch: function () {
     this.setData({
-      search:true
+      search: true
     })
   },
-  bindleCloseChangeSearch:function(){
+  bindleCloseChangeSearch: function () {
     this.setData({
-      search:false
+      search: false
     })
   },
   /**
