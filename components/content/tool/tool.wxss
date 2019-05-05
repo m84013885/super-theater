@@ -1,0 +1,52 @@
+.tool{
+    display: flex;
+    align-items: flex-end;
+    box-sizing: border-box;
+    padding-bottom: 20rpx;
+    width: 100%;
+    height: 100rpx;
+    background-color: rgb(246, 246, 246);
+}
+.mission{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100rpx;
+}
+.info{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+    margin-bottom: 5rpx;
+    width: 50rpx;
+    height: 50rpx;
+    border: 2rpx solid #353535;
+    border-radius: 50%;
+    color: #353535;
+    text-align: center;
+    font-weight: bold;
+    font-size: 36rpx;
+    font-family: PingFangSC-Regular;
+}
+.private{
+    display: flex;
+    justify-content: center;
+    margin-left: 20rpx;
+    width: 80rpx;
+}
+.room{
+    display: flex;
+    justify-content: center;
+    width: 80rpx;
+}
+.room>.info{
+    padding-bottom: 11rpx;
+    font-size: 54rpx;
+}
+.inputContent{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width:450rpx;
+}

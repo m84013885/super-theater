@@ -1,0 +1,14 @@
+<view class="tool" style="height:{{(chatLine-1)*60+100}}rpx">
+  <view class="mission">
+    <view class="info">!</view>
+  </view>
+  <view class="inputContent">
+    <slot></slot>
+  </view>
+  <view class="private">
+    <view class="info">悄</view>
+  </view>
+  <view class="room">
+    <view class="info">+</view>
+  </view>
+</view>

@@ -5,7 +5,7 @@ Page({
    * 页面的初始数据
    */
   data: {
-
+    chatLine:1
   },
 
   /**
@@ -27,6 +27,7 @@ Page({
       //取高度
       console.log(res[0].width);
     })
+    var query = wx.createSelectorQuery();
   },
 
   /**
@@ -72,6 +73,11 @@ Page({
   bindleCloseChangeSearch: function () {
     this.setData({
       search: false
+    })
+  },
+  bindleChangeChatLine:function(e){
+    this.setData({
+      chatLine:e.detail.lineCount
     })
   },
   /**

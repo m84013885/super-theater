@@ -3,14 +3,8 @@
         <chat mine="true" content="where are your sdasqwe qweqwjkjl jnjkjklwqe jlkjqw"></chat>
         <chat content="where are your sdasqwe qweqwjkjl jnjkjklwqe jlkjqw"></chat>
     </view>
-    <view class="tool">
-        <view class="mission">
-            <view class="info">!</view>
-        </view>
-        <view class="inputContent">
-            <textarea class="texteara"></textarea>
-        </view>
-        <view class="room"></view>
-    </view>
+    <tool chatLine="{{chatLine}}">
+        <textarea class="texteara" bindlinechange="bindleChangeChatLine" style="height:{{chatLine*60}}rpx"></textarea>
+    </tool>
     <view id='chatWidth'></view>
 </view>

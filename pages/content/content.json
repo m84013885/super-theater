@@ -1,5 +1,6 @@
 {
     "usingComponents": {
-        "chat": "../../components/content/chat/chat"
+        "chat": "../../components/content/chat/chat",
+        "tool": "../../components/content/tool/tool"
     }
 }
