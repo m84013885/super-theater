@@ -12,14 +12,17 @@ page{
     background-color: rgb(237, 237, 237);
 }
 .texteara{
+    overflow-y: scroll;
     box-sizing: border-box;
+    padding: 0 10rpx;
+    max-height: 240rpx;
     width: 450rpx;
-    height: 60rpx;
     border-radius: 5rpx;
     background-color: #ffffff;
     color: #353535;
     font-size: 38rpx;
     font-family: PingFangSC-Regular;
+    line-height: 60rpx;
 }
 /******************************/
 #chatWidth{

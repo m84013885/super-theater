@@ -1,4 +1,4 @@
-<view class="tool" style="height:{{(chatLine-1)*60+100}}rpx">
+<view class="tool" style="height:{{chatLine<4?(chatLine-1)*60+100:280}}rpx">
   <view class="mission">
     <view class="info">!</view>
   </view>
