@@ -1,7 +1,7 @@
 <view>
   <block wx:if="{{mine}}">
     <view class="main right">
-       <view class="chatWidth" style="max-width:{{width}}">
+       <view class="chatWidth">
         <view class="chatContent chatContentR">
           {{content}}
         </view>

@@ -5,7 +5,12 @@ Page({
    * 页面的初始数据
    */
   data: {
-    chatLine:1
+    chatLine:1,
+    textareBottom:0,
+    textareValue:"0",
+
+    chatHeight:'',
+    chatWidth:265
   },
 
   /**
@@ -21,13 +26,12 @@ Page({
   onReady: function () {
     var query = wx.createSelectorQuery();
     query.select('#chatWidth').boundingClientRect()
-    query.exec(function (res) {
-      //res就是 所有标签为mjltest的元素的信息 的数组
-      console.log(res);
-      //取高度
-      console.log(res[0].width);
+    query.exec((res) => {
+      this.setData({
+        chatHeight:res[0].height,
+        textareValue:'',
+      })
     })
-    var query = wx.createSelectorQuery();
   },
 
   /**
@@ -79,6 +83,76 @@ Page({
     this.setData({
       chatLine:e.detail.lineCount
     })
+  },
+  bindleFocus:function(e){
+    if(e.detail.height){
+      this.setData({
+        textareBottom:e.detail.height
+      })
+    }
+  },
+  bindleBlur:function(e){
+    if(e.detail.value){
+      this.setData({
+        textareValue:e.detail.value
+      })
+      var query = wx.createSelectorQuery();
+      const height = this.data.chatHeight
+      query.select('#chatWidth').boundingClientRect()
+      query.exec((res) => {
+        //res就是 所有标签为mjltest的元素的信息 的数组
+        // console.log(res);
+        //取高度
+        console.log(res[0].height);
+        console.log(height);
+        
+        if(res[0].height!=height){
+          this.checkHeight(res[0].height)
+        }
+      })
+      // 265
+    }
+    // this.setData({
+    //   textareBottom:0
+    // })
+  },
+  bindleConfirm:function(e){
+    if(e.detail.value){
+      this.setData({
+        textareValue:e.detail.value
+      })
+      var query = wx.createSelectorQuery();
+      const height = this.data.chatHeight
+      query.select('#chatWidth').boundingClientRect()
+      query.exec((res) => {
+        //res就是 所有标签为mjltest的元素的信息 的数组
+        // console.log(res);
+        //取高度
+        // console.log(res[0].height);
+        // console.log(height);
+        
+        if(res[0].height!=height){
+          this.checkHeight(res[0].height)
+        }
+      })
+    }
+  },
+  checkHeight(thisHeight){
+      for(var i=0;i<10;i++){
+        var query = wx.createSelectorQuery()
+        query.select('#chatWidth').boundingClientRect()
+        query.exec((res) => {
+          if(thisHeight!=res[0].height){
+            console.log(5)
+          }else{
+            this.setData({
+              textareValue:this.data.textareValue.slice(0,this.data.textareValue.length-1)
+            })
+          }
+        })
+      }
+
+      
   },
   /**
    * 用户点击右上角分享
