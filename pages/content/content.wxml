@@ -1,19 +1,18 @@
 <view class="page" style="transform:translate(0,-{{textareBottom}}px)">
     <view class="content">
-        <chat mine="true" content="where are your sdasqwe qweqwjkj"></chat>
-        <chat content="where are your sdasqwe qweqwjkjl jnjkjklwqe jlkjqw"></chat>
+        <chat wx:for="{{chat}}"  wx:key="index" mine="{{item.mine}}" content="{{item.content}}" width="{{item.width}}"></chat>
     </view>
     <tool chatLine="{{chatLine}}">
-        <!-- bindconfirm="bindleConfirm" -->
         <textarea 
+        value="{{textareValue}}"
         bindconfirm="bindleConfirm"
         bindblur="bindleBlur" 
         bindfocus="bindleFocus" 
         bindlinechange="bindleChangeChatLine" 
         style="height:{{chatLine*60}}rpx" 
         class="texteara" 
-        adjust-position="{{false}}" 
-        show-confirm-bar="{{false}}"></textarea>
+        adjust-position="{{false}}" ></textarea>
     </tool>
-    <view id='chatWidth' style="width:{{chatWidth}}px" >{{textareValue}}</view>
+    <view>{{textareValue}}</view>
+    <view id='chatWidth' style="width:{{chatWidth}}px" >{{chatValue}}</view>
 </view>

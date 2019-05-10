@@ -10,6 +10,7 @@ page{
     transition: transform 0.3s linear;
 }
 .content{
+    overflow-y: scroll;
     flex: 1;
     padding: 0 10rpx;
     background-color: rgb(237, 237, 237);

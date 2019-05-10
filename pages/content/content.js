@@ -5,12 +5,21 @@ Page({
    * 页面的初始数据
    */
   data: {
-    chatLine:1,
-    textareBottom:0,
-    textareValue:"0",
+    chat:[
+      {content:'测试',mine:false,width:265}
+    ],
 
-    chatHeight:'',
-    chatWidth:265
+    // input行数
+    chatLine: 1,
+    textareBottom: 0,
+
+    // input 内容和最后宽度
+    textareValue: "0",
+    textareWidth: "",
+
+    chatHeight: '',
+    chatWidth: 265,
+    chatValue: ''
   },
 
   /**
@@ -28,8 +37,8 @@ Page({
     query.select('#chatWidth').boundingClientRect()
     query.exec((res) => {
       this.setData({
-        chatHeight:res[0].height,
-        textareValue:'',
+        chatHeight: res[0].height,
+        textareValue: '',
       })
     })
   },
@@ -79,80 +88,82 @@ Page({
       search: false
     })
   },
-  bindleChangeChatLine:function(e){
+  bindleChangeChatLine: function (e) {
     this.setData({
-      chatLine:e.detail.lineCount
+      chatLine: e.detail.lineCount
     })
   },
-  bindleFocus:function(e){
-    if(e.detail.height){
+  bindleFocus: function (e) {
+    if (e.detail.height) {
       this.setData({
-        textareBottom:e.detail.height
+        textareBottom: e.detail.height
       })
     }
   },
-  bindleBlur:function(e){
-    if(e.detail.value){
-      this.setData({
-        textareValue:e.detail.value
-      })
-      var query = wx.createSelectorQuery();
-      const height = this.data.chatHeight
-      query.select('#chatWidth').boundingClientRect()
-      query.exec((res) => {
-        //res就是 所有标签为mjltest的元素的信息 的数组
-        // console.log(res);
-        //取高度
-        console.log(res[0].height);
-        console.log(height);
-        
-        if(res[0].height!=height){
-          this.checkHeight(res[0].height)
-        }
-      })
-      // 265
-    }
+  bindleBlur: function (e) {
     // this.setData({
     //   textareBottom:0
     // })
+    this.bindleConfirm(e)
   },
-  bindleConfirm:function(e){
-    if(e.detail.value){
+  bindleConfirm: function (e) {
+    if (e.detail.value) {
       this.setData({
-        textareValue:e.detail.value
+        textareValue: e.detail.value,
+        chatValue: e.detail.value
       })
       var query = wx.createSelectorQuery();
       const height = this.data.chatHeight
       query.select('#chatWidth').boundingClientRect()
       query.exec((res) => {
-        //res就是 所有标签为mjltest的元素的信息 的数组
-        // console.log(res);
-        //取高度
-        // console.log(res[0].height);
-        // console.log(height);
-        
-        if(res[0].height!=height){
+        if (res[0].height != height) {
           this.checkHeight(res[0].height)
+        }else{
+          this.setData({
+            chat:this.data.chat.concat(
+              {content:this.data.textareValue,width:this.data.chatWidth,mine:true}
+            ),
+            textareValue:''
+          })
         }
       })
     }
   },
-  checkHeight(thisHeight){
-      for(var i=0;i<10;i++){
-        var query = wx.createSelectorQuery()
-        query.select('#chatWidth').boundingClientRect()
-        query.exec((res) => {
-          if(thisHeight!=res[0].height){
-            console.log(5)
-          }else{
-            this.setData({
-              textareValue:this.data.textareValue.slice(0,this.data.textareValue.length-1)
-            })
-          }
+  checkHeight(thisHeight) {
+    var query = wx.createSelectorQuery()
+    query.select('#chatWidth').boundingClientRect()
+    query.exec((res) => {
+      if (thisHeight != res[0].height) {
+        this.lastCheckHeight(res[0].height)
+      } else {
+        this.setData({
+          chatValue: this.data.chatValue.slice(0, this.data.chatValue.length - 1)
         })
+        this.checkHeight(thisHeight)
       }
-
-      
+    })
+  },
+  lastCheckHeight(thisHeight){
+    var query = wx.createSelectorQuery()
+    query.select('#chatWidth').boundingClientRect()
+    query.exec((res) => {
+      if (thisHeight != res[0].height) {
+        this.setData({
+          chat:this.data.chat.concat(
+            {content:this.data.textareValue,width:this.data.chatWidth + 1,mine:true}
+          )
+        })
+        this.setData({
+          chatWidth: 265,
+          textareValue:""
+        })
+      } else {
+        this.setData({
+          chatWidth: this.data.chatWidth - 1
+        })
+        this.lastCheckHeight(thisHeight)
+      }
+    })
   },
   /**
    * 用户点击右上角分享
