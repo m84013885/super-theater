@@ -6,7 +6,7 @@ Page({
    */
   data: {
     chat:[
-      {content:'测试',mine:false,width:265}
+      {content:'我企鹅委屈打算的气味啊撒我企鹅委屈打算的气味啊撒打算的胃打算的胃',mine:false,width:265}
     ],
 
     // input行数
@@ -14,12 +14,13 @@ Page({
     textareBottom: 0,
 
     // input 内容和最后宽度
-    textareValue: "0",
+    textareValue: "",
     textareWidth: "",
 
     chatHeight: '',
     chatWidth: 265,
-    chatValue: ''
+    chatValue: '&nbsp;',
+
   },
 
   /**
@@ -36,11 +37,10 @@ Page({
     var query = wx.createSelectorQuery();
     query.select('#chatWidth').boundingClientRect()
     query.exec((res) => {
-      this.setData({
-        chatHeight: res[0].height,
-        textareValue: '',
-      })
+      this._nbsp = res[0].width
     })
+    this._arrStr = 0
+    this._chatStr = []
   },
 
   /**
@@ -100,70 +100,63 @@ Page({
       })
     }
   },
-  bindleBlur: function (e) {
-    // this.setData({
-    //   textareBottom:0
-    // })
-    this.bindleConfirm(e)
+  _getChatWidth (arr) {
+    let total = 0
+    let max = 265
+    let line = 0
+    for(let i=0;i<arr.length;i++){
+      total+=arr[i]
+      if(total>max){
+        line++
+        max = total - arr[i]
+        total = 0
+      }
+    }
+    this.setData({
+      chat:this.data.chat.concat(
+        {content:this.data.textareValue,width:max+line,mine:true}
+      ),
+      textareValue:''
+    })
   },
-  bindleConfirm: function (e) {
-    if (e.detail.value) {
+  _forCheckOneString (arr) {
+    if(arr[this._arrStr]){
       this.setData({
-        textareValue: e.detail.value,
-        chatValue: e.detail.value
-      })
-      var query = wx.createSelectorQuery();
-      const height = this.data.chatHeight
-      query.select('#chatWidth').boundingClientRect()
-      query.exec((res) => {
-        if (res[0].height != height) {
-          this.checkHeight(res[0].height)
-        }else{
-          this.setData({
-            chat:this.data.chat.concat(
-              {content:this.data.textareValue,width:this.data.chatWidth,mine:true}
-            ),
-            textareValue:''
-          })
-        }
+        chatValue:arr[this._arrStr]
       })
     }
-  },
-  checkHeight(thisHeight) {
     var query = wx.createSelectorQuery()
     query.select('#chatWidth').boundingClientRect()
     query.exec((res) => {
-      if (thisHeight != res[0].height) {
-        this.lastCheckHeight(res[0].height)
-      } else {
-        this.setData({
-          chatValue: this.data.chatValue.slice(0, this.data.chatValue.length - 1)
-        })
-        this.checkHeight(thisHeight)
+      if(arr.length-1 < this._arrStr){
+        this._getChatWidth(this._chatStr)
+        this._arrStr = 0
+        this._chatStr = []
+      }else{
+        if(res[0].width===0&&this.data.chatValue===" "){
+          this._chatStr.push(this._nbsp)
+        }else{
+          this._chatStr.push(res[0].width)
+        }
+        this._arrStr++
+        this._forCheckOneString(arr)
       }
     })
   },
-  lastCheckHeight(thisHeight){
-    var query = wx.createSelectorQuery()
-    query.select('#chatWidth').boundingClientRect()
-    query.exec((res) => {
-      if (thisHeight != res[0].height) {
-        this.setData({
-          chat:this.data.chat.concat(
-            {content:this.data.textareValue,width:this.data.chatWidth + 1,mine:true}
-          )
-        })
-        this.setData({
-          chatWidth: 265,
-          textareValue:""
-        })
-      } else {
-        this.setData({
-          chatWidth: this.data.chatWidth - 1
-        })
-        this.lastCheckHeight(thisHeight)
-      }
+  bindleBlur: function () {
+    this.setData({
+      textareBottom:0
     })
+  },
+  bindleConfirm: function (e) {
+    if(e.detail.value){
+      const value = e.detail.value
+      const arr = value.split('')
+      this._forCheckOneString(arr)
+      this.setData({
+        textareValue: e.detail.value
+      })
+    }
   },
   /**
    * 用户点击右上角分享

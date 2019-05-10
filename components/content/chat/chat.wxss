@@ -21,7 +21,7 @@
 }
 .chatContent{
     position: relative;
-    display: inline-block;
+    display: flex;
     margin: 10rpx 0 10rpx 20rpx;
     padding: 22rpx;
     width: auto;

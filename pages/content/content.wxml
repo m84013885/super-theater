@@ -11,8 +11,8 @@
         bindlinechange="bindleChangeChatLine" 
         style="height:{{chatLine*60}}rpx" 
         class="texteara" 
-        adjust-position="{{false}}" ></textarea>
+        adjust-position="{{false}}" 
+        ></textarea>
     </tool>
-    <view>{{textareValue}}</view>
-    <view id='chatWidth' style="width:{{chatWidth}}px" >{{chatValue}}</view>
+    <text id='chatWidth' decode="{{true}}">{{chatValue}}</text>
 </view>
