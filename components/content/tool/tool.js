@@ -6,10 +6,10 @@ Component({
     }
   },
   data: {
-    
+
   },
   attached: function () {
-
+    
   },
   methods: {
 

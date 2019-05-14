@@ -1,0 +1,6 @@
+<view class="container">
+  <view class="imageBox" bindtap="onTap">
+      <view class="image" style="background-image:url({{src}})"></view>
+  </view>
+  <view class="text">{{text}}</view>
+</view>

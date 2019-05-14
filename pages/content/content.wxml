@@ -3,16 +3,27 @@
         <chat wx:for="{{chat}}"  wx:key="index" mine="{{item.mine}}" content="{{item.content}}" width="{{item.width}}"></chat>
     </view>
     <tool chatLine="{{chatLine}}">
-        <textarea 
+        <input 
         value="{{textareValue}}"
         bindconfirm="bindleConfirm"
         bindblur="bindleBlur" 
         bindfocus="bindleFocus" 
-        bindlinechange="bindleChangeChatLine" 
-        style="height:{{chatLine*60}}rpx" 
-        class="texteara" 
+        class="{{state.changeInput==0?'texteara':'hide'}}" 
         adjust-position="{{false}}" 
+        ></input>
+        <textarea
+            value="{{textareValue}}"
+            bindconfirm="bindleConfirm"
+            bindblur="bindleBlur" 
+            bindfocus="bindleFocus" 
+            bindlinechange="bindleChangeChatLine" 
+            style="height:{{chatLine*60}}rpx" 
+            class="{{state.changeInput==1?'texteara':'hide'}}" 
+            adjust-position="{{false}}" 
         ></textarea>
     </tool>
+    <view class="toolBox">
+        <box bind:click="bindleText"></box>
+    </view>
     <text id='chatWidth' decode="{{true}}">{{chatValue}}</text>
 </view>

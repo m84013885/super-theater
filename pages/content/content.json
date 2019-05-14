@@ -1,6 +1,7 @@
 {
     "usingComponents": {
         "chat": "../../components/content/chat/chat",
+        "box": "../../components/content/box/box",
         "tool": "../../components/content/tool/tool"
     }
 }

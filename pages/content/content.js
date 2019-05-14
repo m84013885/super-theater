@@ -5,6 +5,12 @@ Page({
    * 页面的初始数据
    */
   data: {
+    // 状态
+    state:{
+      // input与textarea切换，0为input，1为textarea
+      changeInput:1
+    },
+
     // 文字内容
     chat:[
       {content:'我企鹅委屈打算的气味啊撒我企鹅委屈打算的气味啊撒打算的胃打算的胃',mine:false,width:265}
@@ -114,5 +120,19 @@ Page({
         textareValue: e.detail.value
       })
     }
+  },
+  bindleText:function(){
+    const changeInput = this.data.state.changeInput
+    if(changeInput===1){
+      this._setState('changeInput',0)
+    }else{
+      this._setState('changeInput',1)
+    }
+  },
+  _setState:function(name,total){
+    let section = "state."+name
+    let param = {}
+    param[section] = total
+    this.setData(param)
   }
 })
