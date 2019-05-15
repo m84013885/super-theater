@@ -5,6 +5,7 @@
     padding:20rpx 0;
     width: 100%;
     background-color: rgb(246, 246, 246);
+    transition: all .2s linear;
 }
 .mission{
     display: flex;

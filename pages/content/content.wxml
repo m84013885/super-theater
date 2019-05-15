@@ -1,14 +1,16 @@
-<view class="page" style="transform:translate(0,-{{textareBottom}}px)">
+<view class="page">
     <view class="content">
         <chat wx:for="{{chat}}"  wx:key="index" mine="{{item.mine}}" content="{{item.content}}" width="{{item.width}}"></chat>
     </view>
-    <tool chatLine="{{chatLine}}">
+    <tool chatLine="{{chatLine}}" marginBottom="{{textareBottom}}" bind:click="bindleOpenToolBox">
         <input 
         value="{{textareValue}}"
         bindconfirm="bindleConfirm"
         bindblur="bindleBlur" 
         bindfocus="bindleFocus" 
-        class="{{state.changeInput==0?'texteara':'hide'}}" 
+        bindinput="bindleInput"
+        class="texteara {{state.changeInput==0?'':'hide'}}" 
+        focus="{{inputFocus}}"
         adjust-position="{{false}}" 
         ></input>
         <textarea
@@ -16,13 +18,15 @@
             bindconfirm="bindleConfirm"
             bindblur="bindleBlur" 
             bindfocus="bindleFocus" 
+            bindinput="bindleInput"
             bindlinechange="bindleChangeChatLine" 
             style="height:{{chatLine*60}}rpx" 
-            class="{{state.changeInput==1?'texteara':'hide'}}" 
+            class="texteara {{state.changeInput==1?'':'hide'}}" 
+            focus="{{textareFocus}}"
             adjust-position="{{false}}" 
         ></textarea>
     </tool>
-    <view class="toolBox">
+    <view class="toolBox {{state.toolBox==1?'showToolBox':'hideToolBox'}}">
         <box bind:click="bindleText"></box>
     </view>
     <text id='chatWidth' decode="{{true}}">{{chatValue}}</text>

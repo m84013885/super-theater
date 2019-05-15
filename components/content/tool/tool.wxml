@@ -1,4 +1,4 @@
-<view class="tool">
+<view class="tool" style="margin-bottom:{{marginBottom}}px">
   <view class="mission">
     <view class="info">!</view>
   </view>
@@ -8,7 +8,7 @@
   <view class="private">
     <view class="info">悄</view>
   </view>
-  <view class="room">
+  <view class="room" bindtap="bindleOpenToolBox">
     <view class="info">+</view>
   </view>
 </view>

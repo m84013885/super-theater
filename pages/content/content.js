@@ -8,7 +8,9 @@ Page({
     // 状态
     state:{
       // input与textarea切换，0为input，1为textarea
-      changeInput:1
+      changeInput:0,
+      // 工具是否显示，0为不显示，1为显示
+      toolBox:0
     },
 
     // 文字内容
@@ -22,6 +24,8 @@ Page({
 
     // input 内容和最后宽度
     textareValue: "",
+    inputFocus:false,
+    textareFocus:false,
 
     // 测试宽度的隐藏chat_box
     chatWidth: 265,
@@ -32,6 +36,7 @@ Page({
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function () {
+    this._focusNone = true
     // 获取空格的宽度
     this._getNbsp()
   },
@@ -54,6 +59,7 @@ Page({
   // 点击输入框，键盘与输入框的高度
   bindleFocus: function (e) {
     if (e.detail.height) {
+      this._setState('toolBox',0)
       this.setData({
         textareBottom: e.detail.height
       })
@@ -106,9 +112,13 @@ Page({
   },
   // 失去焦点，底部距离恢复
   bindleBlur: function () {
-    this.setData({
-      textareBottom:0
-    })
+    if(this._focusNone){
+      this.setData({
+        textareBottom:0
+      })
+    }else{
+      this._focusNone = true
+    }
   },
   // 提交输入
   bindleConfirm: function (e) {
@@ -116,8 +126,28 @@ Page({
       const value = e.detail.value
       const arr = value.split('')
       this._forCheckOneString(arr)
+      this._focusNone = false
       this.setData({
-        textareValue: e.detail.value
+        textareValue: e.detail.value,
+      })
+
+      const changeInput = this.data.state.changeInput
+      if(changeInput===1){
+        this.setData({
+          textareFocus: true
+        })
+      }else{
+        this.setData({
+          inputFocus: true
+        })
+      }
+    }
+  },
+  bindleInput:function(e){
+    if(e.detail.value){
+      const value = e.detail.value
+      this.setData({
+        textareValue: value
       })
     }
   },
@@ -134,5 +164,13 @@ Page({
     let param = {}
     param[section] = total
     this.setData(param)
+  },
+  bindleOpenToolBox:function(){
+    const toolBox = this.data.state.toolBox
+    if(toolBox===1){
+      this._setState('toolBox',0)
+    }else{
+      this._setState('toolBox',1)
+    }
   }
 })
