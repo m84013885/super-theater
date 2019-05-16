@@ -15,11 +15,10 @@ page{
     height: 100%;
 }
 .content{
-    overflow: scroll;
-    -webkit-overflow-scrolling: touch;
-    flex: 1;
-    padding: 0 10rpx 30rpx 10rpx;
+    box-sizing: border-box;
+    padding: 0 10rpx;
     background-color: rgb(237, 237, 237);
+    transition: all .2s linear;
 }
 .texteara{
     box-sizing: border-box;
@@ -46,17 +45,26 @@ page{
     opacity: 0;
 }
 /******************************/
-.toolBox{
+.toolBox{ z-index: 2;
     width: 100%;
     height:320rpx;
     border-top: 1rpx solid rgba(53,53,53,.2);
     background-color: rgb(246, 246, 246);
-    transition:height .3s linear; 
-}
+    transition:all .2s linear; 
+    }
 .showToolBox{
     height: 320rpx;
 }
 .hideToolBox{
     display: none;
     height: 0;
+}
+.toolBoxMask{
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 1;
+    background-color: rgba(0, 0, 0, 0.0);
 }

@@ -1,3 +1,5 @@
+
+import system from '../../utils/systemInfo'
 // pages/index/index.js
 Page({
 
@@ -18,9 +20,14 @@ Page({
       {content:'我企鹅委屈打算的气味啊撒我企鹅委屈打算的气味啊撒打算的胃打算的胃',mine:false,width:265}
     ],
 
+    // scroll位置
+    scroll:0,
+
+    // 聊天框高度
+    chatContentHeight:0,
+
     // input行数
     chatLine: 1,
-    textareBottom: 0,
 
     // input 内容和最后宽度
     textareValue: "",
@@ -30,15 +37,60 @@ Page({
     // 测试宽度的隐藏chat_box
     chatWidth: 265,
     chatValue: '&nbsp;',
+    chatHeight: 'auto'
 
   },
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function () {
+    // 初始化默认值
     this._focusNone = true
     // 获取空格的宽度
     this._getNbsp()
+    // 获取聊天框的高度
+    this._getScrollHeight()
+
+  },
+  // 正常聊天框高度
+  _changeChatHeight(){
+    this.setData({
+      chatContentHeight:this._chatHeight
+    })
+  },
+  // 工具栏弹出时聊天框高度
+  _changeChatMinHeight(){
+    this.setData({
+      chatContentHeight:this._chatToolHeight
+    })
+  },
+   // 键盘弹出时聊天框高度
+  _changeSetChatHeight(height){
+    this.setData({
+      chatContentHeight:this._chatHeight - height
+    })
+  },
+  // 获取聊天框的高度
+  _getScrollHeight(){
+    this.setData({
+      chatHeight:'100rpx'
+    })
+    var query = wx.createSelectorQuery();
+    query.select('#chatWidth').boundingClientRect()
+    query.exec((res) => {
+      this._chatHeight = system.windowHeight - res[0].height
+    })
+    this.setData({
+      chatHeight:'320rpx'
+    })
+    var query = wx.createSelectorQuery();
+    query.select('#chatWidth').boundingClientRect()
+    query.exec((res) => {
+      this._chatToolHeight = this._chatHeight - res[0].height 
+      this._changeChatHeight()
+    })
+
+
   },
   // 获取空格的宽度
   _getNbsp(){
@@ -56,13 +108,12 @@ Page({
       chatLine: e.detail.lineCount
     })
   },
-  // 点击输入框，键盘与输入框的高度
+  // 获取焦点，点击输入框，键盘与输入框的高度
   bindleFocus: function (e) {
     if (e.detail.height) {
+      this._changeSetChatHeight(e.detail.height)
+      this._scrollMoveDown()
       this._setState('toolBox',0)
-      this.setData({
-        textareBottom: e.detail.height
-      })
     }
   },
   // 宽度计算最佳宽度
@@ -113,9 +164,7 @@ Page({
   // 失去焦点，底部距离恢复
   bindleBlur: function () {
     if(this._focusNone){
-      this.setData({
-        textareBottom:0
-      })
+      this._changeChatHeight()
     }else{
       this._focusNone = true
     }
@@ -143,6 +192,7 @@ Page({
       }
     }
   },
+  // 根据输入修改值
   bindleInput:function(e){
     if(e.detail.value){
       const value = e.detail.value
@@ -151,6 +201,7 @@ Page({
       })
     }
   },
+  // 修改多行还是单行
   bindleText:function(){
     const changeInput = this.data.state.changeInput
     if(changeInput===1){
@@ -159,18 +210,33 @@ Page({
       this._setState('changeInput',1)
     }
   },
+  // 修改状态的方法
   _setState:function(name,total){
     let section = "state."+name
     let param = {}
     param[section] = total
     this.setData(param)
   },
-  bindleOpenToolBox:function(){
+  // 弹出工具箱
+  bindleChangeToolBox:function(){
     const toolBox = this.data.state.toolBox
     if(toolBox===1){
       this._setState('toolBox',0)
+      this._changeChatHeight()
     }else{
+      this._focusNone = false
+      this._changeChatMinHeight()
       this._setState('toolBox',1)
     }
-  }
+  },
+  // 关闭工具箱
+  bindleCloseToolBox:function(){
+    this._setState('toolBox',0)
+    this._changeChatHeight()
+  },
+  _scrollMoveDown:function(){
+    this.setData({
+      scroll:100000
+    })
+  },
 })

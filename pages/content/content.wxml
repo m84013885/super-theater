@@ -1,8 +1,14 @@
 <view class="page">
-    <view class="content">
+    <scroll-view 
+    bindscrolltolower="bindleScrollDown"
+    scroll-top="{{scroll}}"
+    style="height:{{chatContentHeight}}px"
+    scroll-y="{{true}}"
+    class="content">
         <chat wx:for="{{chat}}"  wx:key="index" mine="{{item.mine}}" content="{{item.content}}" width="{{item.width}}"></chat>
-    </view>
-    <tool chatLine="{{chatLine}}" marginBottom="{{textareBottom}}" bind:click="bindleOpenToolBox">
+        <view class="{{state.toolBox==1?'toolBoxMask':'hide'}}" bindtap="bindleCloseToolBox"></view>
+    </scroll-view>
+    <tool chatLine="{{chatLine}}" bind:click="bindleChangeToolBox">
         <input 
         value="{{textareValue}}"
         bindconfirm="bindleConfirm"
@@ -29,5 +35,5 @@
     <view class="toolBox {{state.toolBox==1?'showToolBox':'hideToolBox'}}">
         <box bind:click="bindleText"></box>
     </view>
-    <text id='chatWidth' decode="{{true}}">{{chatValue}}</text>
+    <text id='chatWidth' decode="{{true}}" style="height:{{chatHeight}}">{{chatValue}}</text>
 </view>
