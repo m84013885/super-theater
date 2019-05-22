@@ -50,7 +50,20 @@ Page({
     this._getNbsp()
     // 获取聊天框的高度
     this._getScrollHeight()
-
+    // 1rpx高度
+    this._getRPX()
+  },
+  // 获取1rpx的高度
+  _getRPX(){
+    // 正常input框的高度
+    this.setData({
+      chatHeight:'1rpx'
+    })
+    var query = wx.createSelectorQuery();
+    query.select('#chatWidth').boundingClientRect()
+    query.exec((res) => {
+      this._RPX = res[0].height
+    })
   },
   // 正常聊天框高度
   _changeChatHeight(){
@@ -72,6 +85,7 @@ Page({
   },
   // 获取聊天框的高度
   _getScrollHeight(){
+    // 正常input框的高度
     this.setData({
       chatHeight:'100rpx'
     })
@@ -80,6 +94,7 @@ Page({
     query.exec((res) => {
       this._chatHeight = system.windowHeight - res[0].height
     })
+    // 工具栏的高度
     this.setData({
       chatHeight:'320rpx'
     })
@@ -89,8 +104,6 @@ Page({
       this._chatToolHeight = this._chatHeight - res[0].height 
       this._changeChatHeight()
     })
-
-
   },
   // 获取空格的宽度
   _getNbsp(){
@@ -107,13 +120,29 @@ Page({
     this.setData({
       chatLine: e.detail.lineCount
     })
+    if(this._focusInput){
+      const chatLine = e.detail.lineCount>4?4:e.detail.lineCount
+      const textareaHeight = (chatLine-1)*(this._RPX*60)
+      this._changeSetChatHeight(this._keyboardHeight+textareaHeight)
+    }
   },
   // 获取焦点，点击输入框，键盘与输入框的高度
-  bindleFocus: function (e) {
+  bindleFocusTextarea: function (e) {
+    if (e.detail.height) {
+      const chatLine = this.data.chatLine>4?4:this.data.chatLine
+      const textareaHeight = (chatLine-1)*(this._RPX*60)
+      this._changeSetChatHeight(e.detail.height+textareaHeight)
+      this._scrollMoveDown()
+      this._setState('toolBox',0)
+      this._keyboardHeight = e.detail.height
+    }
+  },
+  bindleFocusInput:function(e){
     if (e.detail.height) {
       this._changeSetChatHeight(e.detail.height)
       this._scrollMoveDown()
       this._setState('toolBox',0)
+      this._focusInput = false
     }
   },
   // 宽度计算最佳宽度
@@ -162,7 +191,15 @@ Page({
     })
   },
   // 失去焦点，底部距离恢复
-  bindleBlur: function () {
+  bindleBlurInput: function () {
+    this._focusInput = true
+    if(this._focusNone){
+      this._changeChatHeight()
+    }else{
+      this._focusNone = true
+    }
+  },
+  bindleBlurTextarea:function(){
     if(this._focusNone){
       this._changeChatHeight()
     }else{
@@ -234,6 +271,7 @@ Page({
     this._setState('toolBox',0)
     this._changeChatHeight()
   },
+  // 自动下滑到底部
   _scrollMoveDown:function(){
     this.setData({
       scroll:100000

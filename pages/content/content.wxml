@@ -12,8 +12,8 @@
         <input 
         value="{{textareValue}}"
         bindconfirm="bindleConfirm"
-        bindblur="bindleBlur" 
-        bindfocus="bindleFocus" 
+        bindblur="bindleBlurInput" 
+        bindfocus="bindleFocusInput" 
         bindinput="bindleInput"
         class="texteara {{state.changeInput==0?'':'hide'}}" 
         focus="{{inputFocus}}"
@@ -22,8 +22,8 @@
         <textarea
             value="{{textareValue}}"
             bindconfirm="bindleConfirm"
-            bindblur="bindleBlur" 
-            bindfocus="bindleFocus" 
+            bindblur="bindleBlurTextarea" 
+            bindfocus="bindleFocusTextarea" 
             bindinput="bindleInput"
             bindlinechange="bindleChangeChatLine" 
             style="height:{{chatLine*60}}rpx" 
