@@ -65,11 +65,18 @@ Page({
       this._RPX = res[0].height
     })
   },
-  // 正常聊天框高度
   _changeChatHeight(){
-    this.setData({
-      chatContentHeight:this._chatHeight
-    })
+    const input = this.data.state.changeInput
+    if(input===0){
+      this.setData({
+        chatContentHeight:100*this._RPX
+      })
+    }else{
+      this.setData({
+        chatContentHeight:(100+((chatLine-1)*60))*this._RPX
+      })
+    }
+
   },
   // 工具栏弹出时聊天框高度
   _changeChatMinHeight(){
